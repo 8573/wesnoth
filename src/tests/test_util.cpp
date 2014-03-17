@@ -89,6 +89,20 @@ BOOST_AUTO_TEST_CASE( test_bit_width )
 	BOOST_CHECK( bit_width((boost::uint64_t) 0) == 64 );
 }
 
+BOOST_AUTO_TEST_CASE( test_highest_set_bit )
+{
+	BOOST_CHECK( highest_set_bit(0) == 0 );
+	BOOST_CHECK( highest_set_bit(1) == 1 );
+	BOOST_CHECK( highest_set_bit(2) == 2 );
+	BOOST_CHECK( highest_set_bit(3) == 2 );
+	BOOST_CHECK( highest_set_bit(4) == 3 );
+	BOOST_CHECK( highest_set_bit(5) == 3 );
+	BOOST_CHECK( highest_set_bit(6) == 3 );
+	BOOST_CHECK( highest_set_bit(7) == 3 );
+	BOOST_CHECK( highest_set_bit(8) == 3 );
+	BOOST_CHECK( highest_set_bit(12345) == 14 );
+}
+
 /* vim: set ts=4 sw=4: */
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -237,6 +237,30 @@ inline std::size_t bit_width(const T& x) {
 	return sizeof(x) * std::numeric_limits<unsigned char>::digits;
 }
 
+/**
+ * Returns the 1-based bit index of the most significant set bit in
+ * `n`, if:
+ *   (a) `N` is a standard fundamental integer type, and
+ *   (b) `bit_width(n)` is a power of 2 and fits in an `unsigned int`.
+ *
+ * Algorithm generalized from
+ * <http://aggregate.org/MAGIC/#Most%20Significant%201%20Bit>.
+ *
+ * @tparam N The type of `n`.
+ *
+ * @param n The integer on which to operate.
+ *
+ * @returns the 1-based bit index of the most significant set bit in `n`,
+ * under the above conditions.
+ */
+template<typename N>
+inline N highest_set_bit(N n) {
+	for (unsigned int shift = 1; shift < bit_width(n); shift *= 2) {
+		n |= (n >> shift);
+	}
+	return n & ~(n >> 1);
+}
+
 #ifdef __GNUC__
 #define LIKELY(a)    __builtin_expect((a),1) // Tells GCC to optimize code so that if is likely to happen
 #define UNLIKELY(a)  __builtin_expect((a),0) // Tells GCC to optimize code so that if is unlikely to happen
